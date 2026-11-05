@@ -1,10 +1,10 @@
 {
-  "zip_sha256": "05af3aab188c481027069c7a24e8e456793fbbce8f8f7dc67a2e1c8223839cf7",
+  "zip_sha256": "f25e8cc6a0233149699abcfdba50e1e9b416cd24d1ac48539d5fdb5ace7f438e",
   "binaries": [
     {
       "architecture": "arm64",
-      "sha256": "d3fdbf79971d85868b28a7b1c64a9f075f5d3ff40d508bacdacaea14f5b78153",
-      "bytes": 890880,
+      "sha256": "6776bfed2d6340c05fb910dd65edd7711e7eba264d9a8827364bab236f90bd72",
+      "bytes": 1318400,
       "exports": [
         "v51_cancel",
         "v51_create",
@@ -22,23 +22,25 @@
         "v51_version"
       ],
       "imports": [
+        "api-ms-win-crt-stdio-l1-1-0.dll",
         "api-ms-win-crt-runtime-l1-1-0.dll",
         "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
         "api-ms-win-crt-private-l1-1-0.dll",
         "api-ms-win-crt-string-l1-1-0.dll",
         "api-ms-win-crt-math-l1-1-0.dll",
         "api-ms-win-crt-convert-l1-1-0.dll",
         "KERNEL32.dll",
         "api-ms-win-crt-heap-l1-1-0.dll",
-        "api-ms-win-crt-stdio-l1-1-0.dll",
-        "api-ms-win-crt-environment-l1-1-0.dll"
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-multibyte-l1-1-0.dll"
       ],
       "Windows_runtime_tested": false
     },
     {
       "architecture": "x64",
-      "sha256": "fdd94a1a27396ef6cccf7a36d17e3d0579ed637e33a972f5c083321729ec5233",
-      "bytes": 978432,
+      "sha256": "04cff04800e268bec3d8cc481fc89c0e91b6ba1a89392800ca490a2a64425f92",
+      "bytes": 1425920,
       "exports": [
         "v51_cancel",
         "v51_create",
@@ -56,16 +58,18 @@
         "v51_version"
       ],
       "imports": [
+        "api-ms-win-crt-stdio-l1-1-0.dll",
         "api-ms-win-crt-runtime-l1-1-0.dll",
         "api-ms-win-crt-locale-l1-1-0.dll",
         "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
         "api-ms-win-crt-private-l1-1-0.dll",
         "api-ms-win-crt-string-l1-1-0.dll",
         "api-ms-win-crt-convert-l1-1-0.dll",
         "KERNEL32.dll",
         "api-ms-win-crt-heap-l1-1-0.dll",
-        "api-ms-win-crt-stdio-l1-1-0.dll",
-        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-multibyte-l1-1-0.dll",
         "api-ms-win-crt-filesystem-l1-1-0.dll"
       ],
       "Windows_runtime_tested": false

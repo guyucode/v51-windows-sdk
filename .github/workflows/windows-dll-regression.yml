@@ -40,6 +40,8 @@ jobs:
           if ((Get-FileHash $zip.FullName -Algorithm SHA256).Hash.ToLower() -ne $sum) { throw 'SDK checksum mismatch' }
           Expand-Archive $zip.FullName sdk
       - name: Native Windows ABI, certificates and Direct3D WARP
+        env:
+          V51_LP_TRACE: "1"
         shell: pwsh
         run: |
           Set-Location sdk
@@ -51,5 +53,7 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: windows-${{ matrix.arch }}-numerical-report
-          path: sdk/windows_check_result.json
+          path: |
+            sdk/windows_check_result.json
+            sdk/v51_lp_shader.cso
           if-no-files-found: warn
