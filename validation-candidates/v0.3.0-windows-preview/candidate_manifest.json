@@ -1,5 +1,5 @@
 {
-  "zip_sha256": "f181a450fc42673dc08b11057e9450a2b626b091397938e67aee4602a194d0c8",
+  "zip_sha256": "05af3aab188c481027069c7a24e8e456793fbbce8f8f7dc67a2e1c8223839cf7",
   "binaries": [
     {
       "architecture": "arm64",
@@ -73,6 +73,6 @@
   ],
   "clients": {
     "v51.py": "3b54b509a8e23088b5f5743145f7a4f181cbda00de43133e710fd360c960680c",
-    "test_windows.py": "dbf5b7162c820767ef572f2b2868e3c5a96fd4564233b1f43d8a7b1bba77cf09"
+    "test_windows.py": "9545cdcc1aa2aaf340118b26c38210358b9871419ab393bd4448eb1147ad3c05"
   }
 }

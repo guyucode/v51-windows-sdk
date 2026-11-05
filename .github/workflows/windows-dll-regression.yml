@@ -44,7 +44,7 @@ jobs:
         run: |
           Set-Location sdk
           python -c "import sys,sysconfig; print(sys.version,sysconfig.get_platform())"
-          python test_windows.py --warp-lp
+          python -u -X faulthandler test_windows.py --warp-lp
           exit $LASTEXITCODE
       - name: Save verification report
         if: always()
