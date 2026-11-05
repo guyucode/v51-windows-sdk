@@ -39,6 +39,16 @@ jobs:
           $sum = (Get-Content ($zip.FullName + '.sha256')).Split(' ')[0]
           if ((Get-FileHash $zip.FullName -Algorithm SHA256).Hash.ToLower() -ne $sum) { throw 'SDK checksum mismatch' }
           Expand-Archive $zip.FullName sdk
+      - name: Isolate Direct3D LP numerical phase
+        continue-on-error: true
+        env:
+          V51_LP_TRACE: "1"
+          V51_LP_SYNC_TRACE: "1"
+        shell: pwsh
+        run: |
+          Set-Location sdk
+          python -u -X faulthandler -c "from v51 import LPBatch; m=dict(c=[1.,2.],lower=[0.,0.],upper=[4.,4.],rhs=[1.],row=[0,0],col=[0,1],value=[1.,1.]); s=LPBatch(m,capacity=1); print(s.solve([m],seconds=2.)); s.close()"
+          exit $LASTEXITCODE
       - name: Native Windows ABI, certificates and Direct3D WARP
         env:
           V51_LP_TRACE: "1"
