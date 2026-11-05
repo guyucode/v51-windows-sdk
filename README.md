@@ -4,12 +4,16 @@ GPU MILP 与 GPU LP 两个链接库入口，可由 Python 调用。仅发布二�
 
 ## 下载
 
+- **[Windows ARM64 / x64 v0.2.0 测试预览](https://github.com/guyucode/v51-windows-sdk/releases/tag/v0.2.0-windows-preview)**：[Windows用法](windows-v0.2/README.txt)。针对v0.1验算缺陷、通用GPU入口及证书输出升级；**Windows GPU实机验证尚未完成**，并非Mac版功能等价移植。
+
 - **[v0.2.0 Preview：macOS Apple Silicon / CPython 3.9](https://github.com/guyucode/v51-windows-sdk/releases/tag/v0.2.0-preview)**：GPU MILP + GPU LP。
-- [旧 Windows ARM64 / x64 DLL v0.1.0 Preview](https://github.com/guyucode/v51-windows-sdk/releases/tag/v0.1.0-preview)：保持旧版本，不包含本次新 GPU LP 接口。[旧版用法](WINDOWS_v0.1_README.md)。
+- [旧 Windows ARM64 / x64 DLL v0.1.0 Preview](https://github.com/guyucode/v51-windows-sdk/releases/tag/v0.1.0-preview)：**存在已复现的验算缺陷，不建议继续使用**；不包含Mac新 GPU LP 接口。[旧版用法](WINDOWS_v0.1_README.md)。
 
-当前仓库沿用历史名称 `v51-windows-sdk`，v0.2 新包仅适用于 macOS 15及以上、Apple Silicon、原生 ARM64 CPython 3.9。
+当前仓库沿用历史名称 `v51-windows-sdk`，Mac v0.2包适用于 macOS 15及以上、Apple Silicon、原生 ARM64 CPython 3.9；Windows v0.2是另一个测试预览包，接口和证明能力范围见其独立说明。
 
-## 两个功能
+## Mac版两个功能
+
+Windows版使用单独的`v51_solver.dll`和`Solver`客户端，当前不包含Mac批量GPU内点法LP后端。小模型可由自研CPU精确证明模块求解，不能把CPU证明标为GPU完成。
 
 | 入口 | 当前能力与边界 |
 |---|---|
@@ -18,7 +22,7 @@ GPU MILP 与 GPU LP 两个链接库入口，可由 Python 调用。仅发布二�
 
 这是带明确支持范围的预览版，**不宣称全面超过 HiGHS，也不是成熟通用求解器的替代品**。未找到解不代表不可行。
 
-## 运行
+## Mac版运行
 
 下载并解压 v0.2 ZIP，保留整个目录，包含 `runtime` 二进制模块。需要指定 Python ABI 和运行依赖；不能只复制两个 dylib。
 
