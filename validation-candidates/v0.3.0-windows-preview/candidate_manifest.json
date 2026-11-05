@@ -1,10 +1,10 @@
 {
-  "zip_sha256": "ca1719c345025e18b369673cba0be69f0c519e95020ed69c55c8abcc8a763797",
+  "zip_sha256": "614c40588beebe9024331fe33d230ede1373fb418ec94fac30e51a59008b36f9",
   "binaries": [
     {
       "architecture": "arm64",
-      "sha256": "acc40674f4677b2e39e2563d172427c5a1696336d20571c5ff48a5db7ff56a0f",
-      "bytes": 1323520,
+      "sha256": "481b02c1a6370d610515b90b530ce14ecf50446231ed10d8ccfba8ca9ae87e56",
+      "bytes": 1325568,
       "exports": [
         "v51_cancel",
         "v51_create",
@@ -39,8 +39,8 @@
     },
     {
       "architecture": "x64",
-      "sha256": "8c928e8884dd7245c17fd8cacda8eb8304a72dba2d1f2d7e2cf64bf996f45931",
-      "bytes": 1431040,
+      "sha256": "4cdb403bd50b92d0b263c0a310ab066d858968adf7f6a41af00692155f827fb3",
+      "bytes": 1433088,
       "exports": [
         "v51_cancel",
         "v51_create",
