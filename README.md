@@ -1,90 +1,59 @@
-# V51 Windows DLL
+# V51 GPU Solver SDK — Binary Preview
 
-Windows ARM64 / x64 链接库的二进制发布与 Python 调用说明。
+GPU MILP 与 GPU LP 两个链接库入口，可由 Python 调用。仅发布二进制、客户端示例和用法，不发布求解器实现源码、原理文档或私有模型。
 
-从 [Releases](https://github.com/guyucode/v51-windows-sdk/releases) 下载运行包，解压后使用。包内不含 EXE、求解器实现源码、研究记录或原理文档。
+## 下载
 
-## 环境
+- **[v0.2.0 Preview：macOS Apple Silicon / CPython 3.9](https://github.com/guyucode/v51-windows-sdk/releases/tag/v0.2.0-preview)**：GPU MILP + GPU LP。
+- [旧 Windows ARM64 / x64 DLL v0.1.0 Preview](https://github.com/guyucode/v51-windows-sdk/releases/tag/v0.1.0-preview)：保持旧版本，不包含本次新 GPU LP 接口。[旧版用法](WINDOWS_v0.1_README.md)。
 
-- Windows 11，64 位 Python。
-- 原生 ARM64 Python 使用 `arm64/v51_solver.dll`。
-- x64 Python（包括 Windows ARM 上模拟运行的 x64 Python）使用 `x64/v51_solver.dll`。
-- Python 调用只依赖标准库，无需安装 PyTorch、NumPy 或 SciPy。
-- GPU 功能取决于设备及驱动，自检通过后再用于实际任务。
+当前仓库沿用历史名称 `v51-windows-sdk`，v0.2 新包仅适用于 macOS 15及以上、Apple Silicon、原生 ARM64 CPython 3.9。
 
-当前为移植试用版，尚未完成 Windows ARM 实机验证。不能直接沿用其他平台的功能、质量或性能结论。
+## 两个功能
 
-## Python 调用
+| 入口 | 当前能力与边界 |
+|---|---|
+| `libv51_milp.dylib` | GPU MILP 搜索；连续补全仍依赖 **CPU HiGHS IPX**，不是全 GPU MILP。不保证短预算内找到可行解或证明最优。 |
+| `libv51_lp.dylib` | 独立 GPU LP，支持单个及同结构批量。当前约化自由变量≤192、屏障约束≤4096，已验证批量1/8/16。尚未替换MILP默认连续后端。 |
 
-在解压目录运行以下代码。将 `model.json` 替换为自己的输入文件：
+这是带明确支持范围的预览版，**不宣称全面超过 HiGHS，也不是成熟通用求解器的替代品**。未找到解不代表不可行。
 
-```python
-import ctypes
-import json
-import struct
-import sysconfig
-from pathlib import Path
+## 运行
 
-if struct.calcsize("P") != 8:
-    raise RuntimeError("需要64位Python")
-target = sysconfig.get_platform().lower()
-if "arm64" in target:
-    arch = "arm64"
-elif "amd64" in target or "x86_64" in target:
-    arch = "x64"
-else:
-    raise RuntimeError("不支持的Python平台: " + target)
-lib = ctypes.CDLL(str(Path(arch, "v51_solver.dll").resolve()))
+下载并解压 v0.2 ZIP，保留整个目录，包含 `runtime` 二进制模块。需要指定 Python ABI 和运行依赖；不能只复制两个 dylib。
 
-lib.v51_create.argtypes = [ctypes.c_char_p]
-lib.v51_create.restype = ctypes.c_void_p
-lib.v51_solve_json.argtypes = [ctypes.c_void_p, ctypes.c_char_p]
-lib.v51_solve_json.restype = ctypes.c_char_p
-lib.v51_self_test.argtypes = [ctypes.c_void_p, ctypes.c_int]
-lib.v51_self_test.restype = ctypes.c_char_p
-lib.v51_last_error.argtypes = []
-lib.v51_last_error.restype = ctypes.c_char_p
-lib.v51_destroy.argtypes = [ctypes.c_void_p]
-lib.v51_destroy.restype = None
+在 **CPython 3.9** 虚拟环境中：
 
-options = {"seconds": 5, "seed": 11, "backend": "gpu"}
-handle = lib.v51_create(json.dumps(options).encode("utf-8"))
-if not handle:
-    raise RuntimeError(lib.v51_last_error().decode("utf-8"))
-try:
-    # 先自检；0为CPU自检，1为严格GPU自检。
-    check = json.loads(lib.v51_self_test(handle, 1).decode("utf-8"))
-    print("GPU self-test:", check.get("passed"))
-    if not check.get("passed"):
-        raise RuntimeError(json.dumps(check, ensure_ascii=False))
-
-    model = json.loads(Path("model.json").read_text(encoding="utf-8"))
-    payload = json.dumps(model, ensure_ascii=False, allow_nan=False).encode("utf-8")
-    result = json.loads(lib.v51_solve_json(handle, payload).decode("utf-8"))
-    Path("result.json").write_text(
-        json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
-    print(result["status"], result.get("objective"))
-finally:
-    lib.v51_destroy(handle)
+```bash
+python -m pip install numpy==2.0.2 scipy==1.13.1 torch==2.8.0 highspy==1.15.1
+python test_example.py
 ```
 
-## 参数和结果
+```python
+from v51 import MILPSolver, LPSolver
 
-`backend` 可选：
+result = MILPSolver(seconds=5, seed=11).solve(milp_model)
+if result.get("validated"):
+    print(result["objective"], result["solution"])
 
-- `gpu`：严格GPU模式，不能初始化或模型不兼容时返回相应状态，不自动回退。
-- `cpu`：CPU功能验证。
-- `auto`：允许CPU回退，须查看返回的 `backend` 和 `metadata.gpu_used`。
+with LPSolver(lp_model, capacity=16) as solver:
+    batch = solver.solve([{}, {"rhs": updated_rhs}], seconds=2)
+    for point in batch.get("results", []):
+        if point["qualified"]:
+            print(point["metrics"], point["continuous"])
+```
 
-输入字段：`c`、`lower`、`upper`、`binary`、`rhs`、`row`、`col`、`value`；可选 `offset` 和 `integer`。稀疏索引从0开始，每行约束采用“大于等于右端”，边界中的 `null` 表示该侧无界。目前仅接受线性最小化目标。
+模型采用线性最小化、`A x >= rhs`，稀疏索引从0开始；`null` 表示该侧无界。字段和状态见 [完整Mac用法](macos/README.txt)。ZIP内的 `test_example.py` 可直接运行。
 
-检查 `status` 和 `validated`。仅当 `validated=true` 时使用 `solution`；它按原变量顺序返回，`objective` 为原始目标值。未找到解不代表问题不可行，不承诺最优解。
+`v51.py` 只是客户端绑定，使用 `ctypes.PyDLL` 保持GIL。MILP须由主线程调用；同一LP句柄串行使用。
 
-`seconds` 是原生处理预算，返回可能稍晚于截止；截止后的候选不接纳。完整调用耗时应在 Python 侧计量，包含输入转换、DLL调用和结果解码。
+## 验证与耗时
 
-每个句柄串行调用；不同句柄独立。返回字符串由库管理，下一次同句柄调用或销毁前应复制。不要自行释放返回字符串。可从其他线程调用 `v51_cancel(handle)` 请求停止；销毁前须等待调用结束。
+- 二进制在项目目录外运行，未回退到实现源码。
+- GPU LP：六个既有结构、批量1/8/16、300个结果独立核验通过；测试期间禁止调用CPU LP。原始/对偶标准 `1e-7`，相对间隙 `1e-6`；完整Python调用最长约116ms。
+- GPU MILP：装配模型、一般整数混合模型及示例通过原约束/整数性检查；另验证空域、无界边界模型和非法输入状态。
+- 这些是有限的预览版验证，不代表所有模型的成功率或性能。LP并非全程纯FP32。
 
-## 校验与许可
+`seconds` 是协作式后端预算，首次初始化、提交、回读及JSON转换可能使完整调用稍晚。查看 `python_full_call_seconds`；LP模型创建成本单列。仅使用通过相应核验标记的点。
 
-解压包中的 `SHA256SUMS.txt` 提供文件校验值，`licenses` 保留必要的第三方声明。
+发布包内 `validation.json`、`SHA256SUMS.txt` 和Release的 `.sha256` 文件提供验证摘要与校验。第三方依赖遵循各自许可，包内保留必要声明。
