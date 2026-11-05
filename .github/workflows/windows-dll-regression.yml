@@ -28,11 +28,13 @@ jobs:
       - name: Download binary candidate
         shell: pwsh
         env:
-          GH_TOKEN: ${{ github.token }}
           SDK_TAG: ${{ inputs.release_tag }}
         run: |
-          gh release download $env:SDK_TAG --repo $env:GITHUB_REPOSITORY --pattern '*.zip' --pattern '*.zip.sha256' --dir incoming
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          if ($env:SDK_TAG -notmatch '^v[0-9.]+-windows-preview$') { throw 'Invalid candidate identifier' }
+          New-Item -ItemType Directory incoming | Out-Null
+          $root = "https://raw.githubusercontent.com/$env:GITHUB_REPOSITORY/$env:GITHUB_SHA/validation-candidates/$env:SDK_TAG"
+          Invoke-WebRequest "$root/candidate.zip" -OutFile incoming/candidate.zip
+          Invoke-WebRequest "$root/candidate.zip.sha256" -OutFile incoming/candidate.zip.sha256
           $zip = Get-ChildItem incoming/*.zip | Select-Object -First 1
           $sum = (Get-Content ($zip.FullName + '.sha256')).Split(' ')[0]
           if ((Get-FileHash $zip.FullName -Algorithm SHA256).Hash.ToLower() -ne $sum) { throw 'SDK checksum mismatch' }

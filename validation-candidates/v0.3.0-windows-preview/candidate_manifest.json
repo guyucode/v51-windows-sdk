@@ -1,0 +1,78 @@
+{
+  "zip_sha256": "17cdb4a76f8d50efd12fbbf349975894b3fa81c7f3357489a1f9063934870259",
+  "binaries": [
+    {
+      "architecture": "arm64",
+      "sha256": "0c5e9cb51240c86010429e28463529f872ede326c0d0c611449b22a761b3f7cb",
+      "bytes": 887808,
+      "exports": [
+        "v51_cancel",
+        "v51_create",
+        "v51_destroy",
+        "v51_diagnostics",
+        "v51_general_gpu_self_test",
+        "v51_last_error",
+        "v51_lp_cancel",
+        "v51_lp_create_json",
+        "v51_lp_destroy",
+        "v51_lp_solve_batch_json",
+        "v51_self_test",
+        "v51_solve_json",
+        "v51_verify_certificate_json",
+        "v51_version"
+      ],
+      "imports": [
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-private-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "KERNEL32.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll"
+      ],
+      "Windows_runtime_tested": false
+    },
+    {
+      "architecture": "x64",
+      "sha256": "53d1dd6ff73c3645b11318088278e2cf88a6059c8b0a932468d021246413455a",
+      "bytes": 975872,
+      "exports": [
+        "v51_cancel",
+        "v51_create",
+        "v51_destroy",
+        "v51_diagnostics",
+        "v51_general_gpu_self_test",
+        "v51_last_error",
+        "v51_lp_cancel",
+        "v51_lp_create_json",
+        "v51_lp_destroy",
+        "v51_lp_solve_batch_json",
+        "v51_self_test",
+        "v51_solve_json",
+        "v51_verify_certificate_json",
+        "v51_version"
+      ],
+      "imports": [
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-private-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "KERNEL32.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll"
+      ],
+      "Windows_runtime_tested": false
+    }
+  ],
+  "clients": {
+    "v51.py": "3b54b509a8e23088b5f5743145f7a4f181cbda00de43133e710fd360c960680c",
+    "test_windows.py": "4ecdb3d523f022fc2e306ff5fb9e16f7249d6d5dd0072fd2e81c1efb378e0603"
+  }
+}
