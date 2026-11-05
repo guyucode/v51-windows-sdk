@@ -47,7 +47,7 @@ jobs:
         shell: pwsh
         run: |
           Set-Location sdk
-          python -u -X faulthandler -c "from v51 import LPBatch; m=dict(c=[1.,2.],lower=[0.,0.],upper=[4.,4.],rhs=[1.],row=[0,0],col=[0,1],value=[1.,1.]); s=LPBatch(m,capacity=1); print(s.solve([m],seconds=2.)); s.close()"
+          python -u -X faulthandler -c "from v51 import LPBatch; m=dict(c=[1.,2.],lower=[0.,0.],upper=[4.,4.],rhs=[1.],row=[0,0],col=[0,1],value=[1.,1.]); s=LPBatch(m,capacity=1,validation_backend='warp'); print(s.solve([m],seconds=2.)); s.close()"
           exit $LASTEXITCODE
       - name: Native Windows ABI, certificates and Direct3D WARP
         env:
