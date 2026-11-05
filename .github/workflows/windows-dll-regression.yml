@@ -55,5 +55,5 @@ jobs:
           name: windows-${{ matrix.arch }}-numerical-report
           path: |
             sdk/windows_check_result.json
-            sdk/v51_lp_shader.cso
+            sdk/v51_lp_shader*.cso
           if-no-files-found: warn
