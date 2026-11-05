@@ -1,10 +1,10 @@
 {
-  "zip_sha256": "1860cde532c58ef9c44ec76d61b9de360bbf0f376600641e312f0ee30a9f9fda",
+  "zip_sha256": "f181a450fc42673dc08b11057e9450a2b626b091397938e67aee4602a194d0c8",
   "binaries": [
     {
       "architecture": "arm64",
-      "sha256": "d0d5a573ce6cb84503b6f4ee48654deb62a06d472862806890536d8abc191783",
-      "bytes": 888320,
+      "sha256": "d3fdbf79971d85868b28a7b1c64a9f075f5d3ff40d508bacdacaea14f5b78153",
+      "bytes": 890880,
       "exports": [
         "v51_cancel",
         "v51_create",
@@ -37,8 +37,8 @@
     },
     {
       "architecture": "x64",
-      "sha256": "7a506d1e10f3c1ada4120f4990b58eba01d429e54fa45e349843abe0f451a0a2",
-      "bytes": 976896,
+      "sha256": "fdd94a1a27396ef6cccf7a36d17e3d0579ed637e33a972f5c083321729ec5233",
+      "bytes": 978432,
       "exports": [
         "v51_cancel",
         "v51_create",
@@ -73,6 +73,6 @@
   ],
   "clients": {
     "v51.py": "3b54b509a8e23088b5f5743145f7a4f181cbda00de43133e710fd360c960680c",
-    "test_windows.py": "4ecdb3d523f022fc2e306ff5fb9e16f7249d6d5dd0072fd2e81c1efb378e0603"
+    "test_windows.py": "dbf5b7162c820767ef572f2b2868e3c5a96fd4564233b1f43d8a7b1bba77cf09"
   }
 }
