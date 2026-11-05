@@ -1,0 +1,314 @@
+{
+  "version": "0.3.0-windows-preview",
+  "tests": [
+    {
+      "name": "LP_infeasible_certificate",
+      "group": "certificate",
+      "passed": true,
+      "seconds": 0.0009307000000120524,
+      "details": {
+        "status": "infeasible",
+        "CPU_exact_proof": true,
+        "certificate_verified": true
+      }
+    },
+    {
+      "name": "integer_only_infeasible_certificate",
+      "group": "certificate",
+      "passed": true,
+      "seconds": 0.0011015000000043074,
+      "details": {
+        "status": "infeasible",
+        "CPU_exact_proof": true,
+        "certificate_verified": true
+      }
+    },
+    {
+      "name": "v01_false_feasible_regression",
+      "group": "certificate",
+      "passed": true,
+      "seconds": 0.0006838999999985163,
+      "details": {
+        "status": "infeasible",
+        "CPU_exact_proof": true,
+        "certificate_verified": true
+      }
+    },
+    {
+      "name": "LP_optimal_certificate",
+      "group": "certificate",
+      "passed": true,
+      "seconds": 0.0007044999999976653,
+      "details": {
+        "status": "optimal",
+        "CPU_exact_proof": true,
+        "certificate_verified": true
+      }
+    },
+    {
+      "name": "max_objective_certificate",
+      "group": "certificate",
+      "passed": true,
+      "seconds": 0.0007834000000030983,
+      "details": {
+        "status": "optimal",
+        "CPU_exact_proof": true,
+        "certificate_verified": true
+      }
+    },
+    {
+      "name": "integer_without_upper_bound",
+      "group": "certificate",
+      "passed": true,
+      "seconds": 0.0005673000000001593,
+      "details": {
+        "status": "optimal",
+        "CPU_exact_proof": true,
+        "certificate_verified": true
+      }
+    },
+    {
+      "name": "unbounded_box_certificate",
+      "group": "certificate",
+      "passed": true,
+      "seconds": 0.0005318999999985863,
+      "details": {
+        "status": "unbounded",
+        "CPU_exact_proof": false,
+        "certificate_verified": true
+      }
+    },
+    {
+      "name": "standard_integer_bruteforce",
+      "group": "certificate",
+      "passed": true,
+      "seconds": 0.020085500000007528,
+      "details": {
+        "cases": 24,
+        "oracle": "exhaustive enumeration; client tests only"
+      }
+    },
+    {
+      "name": "exact_proof_numeric_solution_consistency",
+      "group": "certificate",
+      "passed": true,
+      "seconds": 0.10117629999999167,
+      "details": {
+        "status": "validated_feasible",
+        "objective": 8.0,
+        "numeric_point_not_falsely_optimal": true
+      }
+    },
+    {
+      "name": "WARP_standard_binary",
+      "group": "Windows_Direct3D_WARP_MILP",
+      "passed": true,
+      "seconds": 2.003267500000007,
+      "details": {
+        "status": "validated_feasible",
+        "backend": "Direct3D11_WARP_general_validation",
+        "gpu_used": false,
+        "CPU_software_shader": true
+      }
+    },
+    {
+      "name": "WARP_standard_general_integer",
+      "group": "Windows_Direct3D_WARP_MILP",
+      "passed": true,
+      "seconds": 2.00406439999999,
+      "details": {
+        "status": "validated_feasible",
+        "backend": "Direct3D11_WARP_general_validation",
+        "gpu_used": false,
+        "CPU_software_shader": true
+      }
+    },
+    {
+      "name": "WARP_standard_mixed_integer",
+      "group": "Windows_Direct3D_WARP_MILP",
+      "passed": true,
+      "seconds": 2.0042264000000074,
+      "details": {
+        "status": "validated_feasible",
+        "backend": "Direct3D11_WARP_general_validation",
+        "gpu_used": false,
+        "CPU_software_shader": true
+      }
+    },
+    {
+      "name": "WARP_v01_false_feasible_without_proof",
+      "group": "Windows_Direct3D_WARP_MILP",
+      "passed": true,
+      "seconds": 2.005810800000006,
+      "details": {
+        "status": "time_limit_no_verified_point",
+        "proof_disabled": true,
+        "false_feasible_rejected": true,
+        "metadata": {
+          "CPU_software_shader": true,
+          "Direct3D_dispatch_executed": true,
+          "device": {
+            "adapter": "Microsoft Basic Render Driver",
+            "api": "Direct3D11 compute shader5",
+            "available": true,
+            "compute_validation": "run GPU self-test before use",
+            "device_creation_passed": true,
+            "feature_level": 45312,
+            "hardware_device": false
+          },
+          "generic_matrix_route": true,
+          "gpu_used": false,
+          "unbounded_domains": "expanding proposal windows; never infeasibility proofs",
+          "verified_improvements": 0
+        }
+      }
+    },
+    {
+      "name": "WARP_integer_fractional_infeasible_without_proof",
+      "group": "Windows_Direct3D_WARP_MILP",
+      "passed": true,
+      "seconds": 2.003443599999997,
+      "details": {
+        "status": "time_limit_no_verified_point",
+        "proof_disabled": true,
+        "false_feasible_rejected": true,
+        "metadata": {
+          "CPU_software_shader": true,
+          "Direct3D_dispatch_executed": true,
+          "device": {
+            "adapter": "Microsoft Basic Render Driver",
+            "api": "Direct3D11 compute shader5",
+            "available": true,
+            "compute_validation": "run GPU self-test before use",
+            "device_creation_passed": true,
+            "feature_level": 45312,
+            "hardware_device": false
+          },
+          "generic_matrix_route": true,
+          "gpu_used": false,
+          "unbounded_domains": "expanding proposal windows; never infeasibility proofs",
+          "verified_improvements": 0
+        }
+      }
+    },
+    {
+      "name": "WARP_LP_batch_1",
+      "group": "Windows_Direct3D_WARP_LP",
+      "passed": true,
+      "seconds": 7.569092100000006,
+      "details": {
+        "qualified": 1,
+        "reordered_qualified": 1,
+        "online_seconds": 0.08848370000001182,
+        "offline_seconds": 7.4695733000000075,
+        "metadata": {
+          "CPU_Newton": true,
+          "CPU_software_shader": true,
+          "Direct3D_dispatch_executed": true,
+          "GPU_executed": false,
+          "cooperative_budget": true,
+          "diagnostic_phase_sync": false,
+          "final_readback_seconds": 0.0003189999999904103,
+          "kernel_dispatches": 48,
+          "parameter_upload_seconds": 9.299999987888441e-06,
+          "per_Newton_host_reads": 0,
+          "polls": 2,
+          "resident_phases": 6
+        }
+      }
+    },
+    {
+      "name": "WARP_LP_batch_8",
+      "group": "Windows_Direct3D_WARP_LP",
+      "passed": true,
+      "seconds": 0.14052320000001828,
+      "details": {
+        "qualified": 8,
+        "reordered_qualified": 8,
+        "online_seconds": 0.09968950000001087,
+        "offline_seconds": 0.025071300000007568,
+        "metadata": {
+          "CPU_Newton": true,
+          "CPU_software_shader": true,
+          "Direct3D_dispatch_executed": true,
+          "GPU_executed": false,
+          "cooperative_budget": true,
+          "diagnostic_phase_sync": false,
+          "final_readback_seconds": 0.0002676999999948748,
+          "kernel_dispatches": 72,
+          "parameter_upload_seconds": 1.0500000001911758e-05,
+          "per_Newton_host_reads": 0,
+          "polls": 3,
+          "resident_phases": 6
+        }
+      }
+    },
+    {
+      "name": "WARP_LP_batch_16",
+      "group": "Windows_Direct3D_WARP_LP",
+      "passed": true,
+      "seconds": 0.15621039999999198,
+      "details": {
+        "qualified": 16,
+        "reordered_qualified": 16,
+        "online_seconds": 0.10601110000001768,
+        "offline_seconds": 0.024841000000009217,
+        "metadata": {
+          "CPU_Newton": true,
+          "CPU_software_shader": true,
+          "Direct3D_dispatch_executed": true,
+          "GPU_executed": false,
+          "cooperative_budget": true,
+          "diagnostic_phase_sync": false,
+          "final_readback_seconds": 0.00030010000000402215,
+          "kernel_dispatches": 72,
+          "parameter_upload_seconds": 7.900000014160469e-06,
+          "per_Newton_host_reads": 0,
+          "polls": 3,
+          "resident_phases": 6
+        }
+      }
+    },
+    {
+      "name": "WARP_LP_mixed_feasible_infeasible",
+      "group": "Windows_Direct3D_WARP_LP",
+      "passed": true,
+      "seconds": 0.12882749999999987,
+      "details": {
+        "feasible": "optimal_within_tolerance",
+        "infeasible_without_certificate": "unknown",
+        "device_failure_not_infeasibility": true
+      }
+    },
+    {
+      "name": "WARP_LP_unbounded_no_false_optimum",
+      "group": "Windows_Direct3D_WARP_LP",
+      "passed": true,
+      "seconds": 0.12737070000000017,
+      "details": {
+        "status": "feasible",
+        "unbounded_not_misreported_optimal": true
+      }
+    }
+  ],
+  "GPU_tests_requested": false,
+  "WARP_validation_requested": true,
+  "Windows_runtime": true,
+  "diagnostics": {
+    "Windows_hardware_validation_in_build_environment": false,
+    "gpu": {
+      "available": false,
+      "error": "strict GPU mode rejects software adapters; WARP is validation-only"
+    },
+    "source_implementation_in_package": false,
+    "version": "v51-native-windows-0.3.0-preview",
+    "python_version": "3.13.17 (tags/v3.13.17:64e080d, Oct 21 2026, 14:08:53) [MSC v.1944 64 bit (AMD64)]",
+    "python_platform": "win-amd64",
+    "machine": "AMD64",
+    "dll_path": "D:\\a\\v51-windows-sdk\\v51-windows-sdk\\sdk\\x64\\v51_solver.dll"
+  },
+  "passed": true,
+  "run_completed": true,
+  "GPU_tests_executed": false,
+  "WARP_tests_executed": true
+}

@@ -1,0 +1,164 @@
+{
+  "version": "0.3.0-windows-preview",
+  "features": [
+    "GPU_MILP",
+    "same_structure_batched_GPU_LP"
+  ],
+  "architectures": [
+    {
+      "architecture": "arm64",
+      "sha256": "8d984de46d547fda0b1891b8f0f7dc55a56591e74b29440a7b436e83d2d19dbf",
+      "bytes": 1328640,
+      "exports": [
+        "v51_cancel",
+        "v51_create",
+        "v51_destroy",
+        "v51_diagnostics",
+        "v51_general_gpu_self_test",
+        "v51_last_error",
+        "v51_lp_cancel",
+        "v51_lp_create_json",
+        "v51_lp_destroy",
+        "v51_lp_solve_batch_json",
+        "v51_self_test",
+        "v51_solve_json",
+        "v51_verify_certificate_json",
+        "v51_version"
+      ],
+      "imports": [
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-private-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "KERNEL32.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-multibyte-l1-1-0.dll"
+      ],
+      "Windows_runtime_tested": true,
+      "Windows_CPU_and_WARP_executed": true,
+      "Windows_GPU_hardware_tested": false
+    },
+    {
+      "architecture": "x64",
+      "sha256": "fcf106a8ab43acf8d6e869a261e2a59b266476d170ef216f35dcd0e1206572b9",
+      "bytes": 1437184,
+      "exports": [
+        "v51_cancel",
+        "v51_create",
+        "v51_destroy",
+        "v51_diagnostics",
+        "v51_general_gpu_self_test",
+        "v51_last_error",
+        "v51_lp_cancel",
+        "v51_lp_create_json",
+        "v51_lp_destroy",
+        "v51_lp_solve_batch_json",
+        "v51_self_test",
+        "v51_solve_json",
+        "v51_verify_certificate_json",
+        "v51_version"
+      ],
+      "imports": [
+        "api-ms-win-crt-stdio-l1-1-0.dll",
+        "api-ms-win-crt-runtime-l1-1-0.dll",
+        "api-ms-win-crt-locale-l1-1-0.dll",
+        "api-ms-win-crt-math-l1-1-0.dll",
+        "api-ms-win-crt-environment-l1-1-0.dll",
+        "api-ms-win-crt-private-l1-1-0.dll",
+        "api-ms-win-crt-string-l1-1-0.dll",
+        "api-ms-win-crt-convert-l1-1-0.dll",
+        "KERNEL32.dll",
+        "api-ms-win-crt-heap-l1-1-0.dll",
+        "api-ms-win-crt-time-l1-1-0.dll",
+        "api-ms-win-crt-multibyte-l1-1-0.dll",
+        "api-ms-win-crt-filesystem-l1-1-0.dll"
+      ],
+      "Windows_runtime_tested": true,
+      "Windows_CPU_and_WARP_executed": true,
+      "Windows_GPU_hardware_tested": false
+    }
+  ],
+  "Windows_native_CI": {
+    "url": "https://github.com/guyucode/v51-windows-sdk/actions/runs/41992659489",
+    "run_id": 41992659489,
+    "reports": {
+      "arm64": {
+        "groups": 19,
+        "groups_by_category": {
+          "Windows_Direct3D_WARP_LP": 5,
+          "Windows_Direct3D_WARP_MILP": 5,
+          "certificate": 9
+        },
+        "Windows_runtime": true,
+        "python_platform": "win-arm64"
+      },
+      "x64": {
+        "groups": 19,
+        "groups_by_category": {
+          "Windows_Direct3D_WARP_LP": 5,
+          "Windows_Direct3D_WARP_MILP": 5,
+          "certificate": 9
+        },
+        "Windows_runtime": true,
+        "python_platform": "win-amd64"
+      }
+    },
+    "passed": true,
+    "execution": "CPU exact certificates and Direct3D WARP software shaders; NOT GPU hardware"
+  },
+  "Windows_GPU_hardware_tested": false,
+  "Windows_GPU_MILP_performance_tested": false,
+  "Windows_GPU_LP_performance_tested": false,
+  "Mac_GPU_translated_operator": {
+    "LPs": 160,
+    "passed": true,
+    "original_Mac_kernel_and_CPU_reference_and_HiGHS_compared": true,
+    "primal_tolerance": 1e-07,
+    "dual_tolerance": 1e-07,
+    "relative_gap_tolerance": 1e-06,
+    "negative_and_reorder_groups": 7
+  },
+  "host_numerical_and_contract": {
+    "cases": 189,
+    "random_HiGHS_cases": 180,
+    "passed": true
+  },
+  "v01_false_feasible_regression": true,
+  "certificate_tamper_rejected": true,
+  "negative_signed_gap_quality_regression": true,
+  "exact_proof_numeric_solution_consistency_regression": true,
+  "proof_disabled_infeasible_MILP_regressions": true,
+  "mixed_min_max_LP_batch_regressions": true,
+  "full_Mac_frontend_parity": false,
+  "Windows_LP_frontend": {
+    "fixed_variable_elimination": true,
+    "full_Mac_structure_compression_ported": false,
+    "free_variable_cap": 192,
+    "barrier_row_cap": 4096,
+    "capacity_cap": 64,
+    "CPU_parameter_pack_restore_and_audit": true,
+    "six_existing_fixed_assignment_coverage": {
+      "passed_four_facility_and_production": true,
+      "two_r80_exceed_native_frontend_cap": true,
+      "execution_platform": "Mac GPU translated Windows numerical operator; NOT Windows hardware"
+    }
+  },
+  "proof_limits": {
+    "CPU_exact_original_variables": 16,
+    "CPU_exact_original_rows": 64,
+    "CPU_exact_nodes": 256,
+    "bounded_arithmetic": true,
+    "LPBatch_complete_optimality_proof": false,
+    "LPBatch_verified_dual_bounds": true
+  },
+  "source_distributed": false,
+  "private_models_distributed": false,
+  "principles_documents_distributed": false,
+  "performance_superiority_claim": false,
+  "candidate_archive_sha256": "5c820d2f23c7e13df6a6de0868d9907bf2e59485d0170f4a0aae657562e52320"
+}

@@ -1,19 +1,21 @@
 # V51 GPU Solver SDK — Binary Preview
 
-GPU MILP 与 GPU LP 两个链接库入口，可由 Python 调用。仅发布二进制、客户端示例和用法，不发布求解器实现源码、原理文档或私有模型。
+GPU MILP 与 GPU LP 两个功能入口，可由 Python 调用；Windows版共用一个DLL，Mac版为两个dylib。仅发布二进制、客户端示例和用法，不发布求解器实现源码、原理文档或私有模型。
 
 ## 下载
 
-- **[Windows ARM64 / x64 v0.2.0 测试预览](https://github.com/guyucode/v51-windows-sdk/releases/tag/v0.2.0-windows-preview)**：[Windows用法](windows-v0.2/README.txt)。针对v0.1验算缺陷、通用GPU入口及证书输出升级；**Windows GPU实机验证尚未完成**，并非Mac版功能等价移植。
+- **[Windows ARM64 / x64 v0.3.0 测试预览](https://github.com/guyucode/v51-windows-sdk/releases/tag/v0.3.0-windows-preview)**：`Solver` GPU MILP + `LPBatch` 批量GPU LP，[用法和边界](windows-v0.3/README.txt)、[实际验证摘要](windows-v0.3/validation.json)。两架构各19组Windows CPU/Direct3D WARP软件回归通过，[CI记录](https://github.com/guyucode/v51-windows-sdk/actions/runs/41992659489)。**Windows真实GPU硬件尚未实测**；Mac完整结构压缩尚未移植，原始r80连续LP超出当前Windows前端规模，不标记为通过。
+
+- [旧 Windows ARM64 / x64 v0.2.0 测试预览](https://github.com/guyucode/v51-windows-sdk/releases/tag/v0.2.0-windows-preview)：[Windows用法](windows-v0.2/README.txt)。针对v0.1验算缺陷、通用GPU入口及证书输出升级；**Windows GPU实机验证尚未完成**，并非Mac版功能等价移植。
 
 - **[v0.2.0 Preview：macOS Apple Silicon / CPython 3.9](https://github.com/guyucode/v51-windows-sdk/releases/tag/v0.2.0-preview)**：GPU MILP + GPU LP。
 - [旧 Windows ARM64 / x64 DLL v0.1.0 Preview](https://github.com/guyucode/v51-windows-sdk/releases/tag/v0.1.0-preview)：**存在已复现的验算缺陷，不建议继续使用**；不包含Mac新 GPU LP 接口。[旧版用法](WINDOWS_v0.1_README.md)。
 
-当前仓库沿用历史名称 `v51-windows-sdk`，Mac v0.2包适用于 macOS 15及以上、Apple Silicon、原生 ARM64 CPython 3.9；Windows v0.2是另一个测试预览包，接口和证明能力范围见其独立说明。
+当前仓库沿用历史名称 `v51-windows-sdk`，Mac v0.2包适用于 macOS 15及以上、Apple Silicon、原生 ARM64 CPython 3.9；Windows v0.3为独立原生DLL包，只需Python标准库；接口、精度、证明和规模边界见其独立说明。
 
 ## Mac版两个功能
 
-Windows版使用单独的`v51_solver.dll`和`Solver`客户端，当前不包含Mac批量GPU内点法LP后端。小模型可由自研CPU精确证明模块求解，不能把CPU证明标为GPU完成。
+Windows v0.3使用`v51_solver.dll`，提供`Solver`与`LPBatch`两个客户端。已移植批量GPU LP数值后端，结构压缩和完整GPU参数处理链仍与Mac不同。小模型可由CPU精确证明模块直接求解，WARP为CPU软件执行；两者都不能计作GPU硬件收益。
 
 | 入口 | 当前能力与边界 |
 |---|---|
@@ -51,7 +53,7 @@ with LPSolver(lp_model, capacity=16) as solver:
 
 `v51.py` 只是客户端绑定，使用 `ctypes.PyDLL` 保持GIL。MILP须由主线程调用；同一LP句柄串行使用。
 
-## 验证与耗时
+## Mac版验证与耗时
 
 - 二进制在项目目录外运行，未回退到实现源码。
 - GPU LP：六个既有结构、批量1/8/16、300个结果独立核验通过；测试期间禁止调用CPU LP。原始/对偶标准 `1e-7`，相对间隙 `1e-6`；完整Python调用最长约116ms。

@@ -1,3 +1,5 @@
+> 本说明仅供历史v0.1 Release。main根目录DLL现已更新至v0.3；新用法与实际验证范围见 [Windows v0.3](windows-v0.3/README.txt)。
+
 > 已知问题：v0.1存在已复现的浮点验算缺陷，可能误接纳违反原约束的点，不建议继续用于可行性结论。请查看Windows v0.2测试预览及其验证范围。
 
 # V51 Windows DLL
