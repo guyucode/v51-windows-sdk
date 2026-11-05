@@ -1,0 +1,53 @@
+name: Windows DLL numerical regression
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Draft or published SDK release tag
+        required: true
+        default: v0.3.0-windows-preview
+permissions:
+  contents: read
+jobs:
+  windows:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: windows-latest
+            arch: x64
+          - runner: windows-11-arm
+            arch: arm64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.13'
+          architecture: ${{ matrix.arch }}
+      - name: Download binary candidate
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SDK_TAG: ${{ inputs.release_tag }}
+        run: |
+          gh release download $env:SDK_TAG --repo $env:GITHUB_REPOSITORY --pattern '*.zip' --pattern '*.zip.sha256' --dir incoming
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $zip = Get-ChildItem incoming/*.zip | Select-Object -First 1
+          $sum = (Get-Content ($zip.FullName + '.sha256')).Split(' ')[0]
+          if ((Get-FileHash $zip.FullName -Algorithm SHA256).Hash.ToLower() -ne $sum) { throw 'SDK checksum mismatch' }
+          Expand-Archive $zip.FullName sdk
+      - name: Native Windows ABI, certificates and Direct3D WARP
+        shell: pwsh
+        run: |
+          Set-Location sdk
+          python -c "import sys,sysconfig; print(sys.version,sysconfig.get_platform())"
+          python test_windows.py --warp-lp
+          exit $LASTEXITCODE
+      - name: Save verification report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: windows-${{ matrix.arch }}-numerical-report
+          path: sdk/windows_check_result.json
+          if-no-files-found: warn
